@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on My New Hugo Site</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 25 Feb 2020 16:02:46 +0800</lastBuildDate>
+    
+        <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Blog2</title>
+      <link>/post/blog2/</link>
+      <pubDate>Tue, 25 Feb 2020 16:02:46 +0800</pubDate>
+      
+      <guid>/post/blog2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>halo hugo</title>
+      <link>/post/blog/</link>
+      <pubDate>Tue, 25 Feb 2020 15:55:30 +0800</pubDate>
+      
+      <guid>/post/blog/</guid>
+      <description>hugo 的第一篇日志 public class HelloWorld { public static void main(String []args) { System.out.println(&amp;#34;Hello World&amp;#34;); } } https://themes.gohugo.io/hugo-notepadium/</description>
+    </item>
+    
+  </channel>
+</rss>
