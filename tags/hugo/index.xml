@@ -18,7 +18,7 @@
       <pubDate>Tue, 25 Feb 2020 16:02:46 +0800</pubDate>
       
       <guid>/post/blog2/</guid>
-      <description>baseURL = &amp;quot;https://gejigejiemmm.github.io/&amp;quot; title = &amp;quot;gejigejiemmm&amp;quot; theme = &amp;quot;hugo-notepadium&amp;quot; copyright = &amp;quot;©2020 gejigejiemmm.&amp;quot; languageCode = &amp;quot;zh-cn&amp;quot; hasCJKLanguage = true enableRobotsTXT = true # Enable Disqus #disqusShortname = &amp;quot;XXX&amp;quot; # Google Analytics #googleAnalytics = &amp;quot;UA-123-45&amp;quot; [markup.highlight] codeFences = true noClasses = false [markup.goldmark.renderer] unsafe = true # enable raw HTML in Markdown [params] style = &amp;quot;auto&amp;quot; # default: auto. light: light</description>
+      <description>hugo conf文件的简单配置 baseURL = &amp;quot;https://gejigejiemmm.github.io/&amp;quot; title = &amp;quot;gejigejiemmm&amp;quot; theme = &amp;quot;hugo-notepadium&amp;quot; copyright = &amp;quot;©2020 gejigejiemmm.&amp;quot; languageCode = &amp;quot;zh-cn&amp;quot; hasCJKLanguage = true enableRobotsTXT = true # Enable Disqus #disqusShortname = &amp;quot;XXX&amp;quot; # Google Analytics #googleAnalytics = &amp;quot;UA-123-45&amp;quot; [markup.highlight] codeFences = true noClasses = false [markup.goldmark.renderer] unsafe = true # enable raw</description>
     </item>
     
   </channel>
