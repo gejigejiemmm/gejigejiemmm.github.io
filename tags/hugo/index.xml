@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on gejigejiemmm</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on gejigejiemmm</description>
+    <title>hugo on gejigejiemmm</title>
+    <link>/tags/hugo/</link>
+    <description>Recent content in hugo on gejigejiemmm</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2020 gejigejiemmm.</copyright>
     <lastBuildDate>Tue, 25 Feb 2020 16:02:46 +0800</lastBuildDate>
     
-        <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       
       <guid>/post/blog2/</guid>
       <description>baseURL = &amp;quot;https://gejigejiemmm.github.io/&amp;quot; title = &amp;quot;gejigejiemmm&amp;quot; theme = &amp;quot;hugo-notepadium&amp;quot; copyright = &amp;quot;©2020 gejigejiemmm.&amp;quot; languageCode = &amp;quot;zh-cn&amp;quot; hasCJKLanguage = true enableRobotsTXT = true # Enable Disqus #disqusShortname = &amp;quot;XXX&amp;quot; # Google Analytics #googleAnalytics = &amp;quot;UA-123-45&amp;quot; [markup.highlight] codeFences = true noClasses = false [markup.goldmark.renderer] unsafe = true # enable raw HTML in Markdown [params] style = &amp;quot;auto&amp;quot; # default: auto. light: light</description>
-    </item>
-    
-    <item>
-      <title>halo hugo</title>
-      <link>/post/blog/</link>
-      <pubDate>Tue, 25 Feb 2020 15:55:30 +0800</pubDate>
-      
-      <guid>/post/blog/</guid>
-      <description>hugo 的第一篇日志 public class HelloWorld { public static void main(String []args) { System.out.println(&amp;#34;Hello World&amp;#34;); } } https://themes.gohugo.io/hugo-notepadium/ https://tanhoo2019.github.io/2020/01/how_to_use/</description>
     </item>
     
   </channel>

@@ -1,12 +1,69 @@
 <!DOCTYPE html>
 <html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.64.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark"><title>Blog2&nbsp;&ndash;&nbsp;gejigejiemmm</title><link rel="stylesheet" href="/css/core.min.a5d63d306fa53cba7bcef6c96fd6b55a008ea5736acaf25aace71f2bd7b379b2d97257d9c332e405e82f4f6e980f8409.css" integrity="sha384-pdY9MG&#43;lPLp7zvbJb9a1WgCOpXNqyvJarOcfK9ezebLZclfZwzLkBegvT26YD4QJ"><body>
+<meta name="supported-color-schemes" content="light dark"><title>hugo 配置文件&nbsp;&ndash;&nbsp;gejigejiemmm</title><link rel="stylesheet" href="/css/core.min.a5d63d306fa53cba7bcef6c96fd6b55a008ea5736acaf25aace71f2bd7b379b2d97257d9c332e405e82f4f6e980f8409.css" integrity="sha384-pdY9MG&#43;lPLp7zvbJb9a1WgCOpXNqyvJarOcfK9ezebLZclfZwzLkBegvT26YD4QJ"><body>
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/tomato.png" alt /><span class="site name">gejigejiemmm</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="https://github.com/gejigejiemmm/"target="_blank">Github</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">halo😊</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">Blog2</h1><p class="article date">Tuesday, February 25, 2020</p></section><article class="article markdown-body"></article></div><section class="article navigation"><p><a class="link" href="/post/blog/"><span class="li">&rarr;</span>halo hugo</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
-    <p class="copyright">©2020 Notepadium.</p>
+    <h1 class="article title">hugo 配置文件</h1><p class="article date">Tuesday, February 25, 2020</p></section><article class="article markdown-body"><pre><code>baseURL = &quot;https://gejigejiemmm.github.io/&quot;
+title = &quot;gejigejiemmm&quot;
+theme = &quot;hugo-notepadium&quot;
+copyright = &quot;©2020 gejigejiemmm.&quot;
+
+languageCode = &quot;zh-cn&quot;
+hasCJKLanguage = true
+
+enableRobotsTXT = true
+
+# Enable Disqus
+#disqusShortname = &quot;XXX&quot;
+
+# Google Analytics
+#googleAnalytics = &quot;UA-123-45&quot;
+
+[markup.highlight]
+codeFences = true
+noClasses = false
+
+[markup.goldmark.renderer]
+unsafe = true  # enable raw HTML in Markdown
+
+[params]
+style = &quot;auto&quot;  # default: auto. light: light theme, dark: dark theme, auto: based on system.
+dateFormat = &quot;Monday, January 2, 2006&quot;  # if unset, default is &quot;2006-01-02&quot;
+logo = &quot;tomato.png&quot;  # if you have a logo png
+slogan = &quot;halo😊&quot;
+license = &quot;&quot;  # CC License
+
+[params.comments]
+enable = false  # En/Disable comments globally, default: false. You can always enable comments on per page.
+
+[params.math]
+enable = false  # optional: true, false. Enable globally, default: false. You can always enable math on per page.
+use = &quot;katex&quot;  # option: &quot;katex&quot;, &quot;mathjax&quot;. default: &quot;katex&quot;
+
+[params.syntax]
+use = &quot;none&quot;  # builtin: &quot;prismjs&quot;, &quot;hljs&quot;. &quot;none&quot; means Chroma
+theme = &quot;xcode&quot;
+darkTheme = &quot;xcode-dark&quot;  # apply this theme in dark mode
+
+[params.nav]
+showCategories = true       # /categories/
+showTags = true             # /tags/
+
+# custom navigation items
+
+[[params.nav.custom]]
+title = &quot;Github&quot;
+url = &quot;https://github.com/gejigejiemmm/&quot;
+
+[[params.nav.custom]]
+title = &quot;Hugo&quot;
+url = &quot;https://gohugo.io/&quot;
+
+
+</code></pre></article><section class="article labels"><a class="tag" href=/tags/hugo/>hugo</a></section></div><section class="article navigation"><p><a class="link" href="/post/blog/"><span class="li">&rarr;</span>halo hugo</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
+    <p class="copyright">©2020 gejigejiemmm.</p>
     <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
         target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
         target="_blank">Notepadium</a></p>
