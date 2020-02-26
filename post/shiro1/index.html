@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.64.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark"><title>Shiro的初步学习&nbsp;&ndash;&nbsp;gejigejiemmm</title><link rel="stylesheet" href="/css/core.min.a5d63d306fa53cba7bcef6c96fd6b55a008ea5736acaf25aace71f2bd7b379b2d97257d9c332e405e82f4f6e980f8409.css" integrity="sha384-pdY9MG&#43;lPLp7zvbJb9a1WgCOpXNqyvJarOcfK9ezebLZclfZwzLkBegvT26YD4QJ"><body>
+    <div class="base-body"><section id="header" class="site header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/tomato.png" alt /><span class="site name">gejigejiemmm</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="https://github.com/gejigejiemmm/"target="_blank">Github</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">halo😊</span></div></section><div id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">Shiro的初步学习</h1><p class="article date">Wednesday, February 26, 2020</p></section><article class="article markdown-body"><h2 id="shiro的初步学习">shiro的初步学习</h2>
+<p>shiro 是一个权限管理的框架，之前就听过，但一直没学习，寒假在家还不开学，实在玩不下去了，来学个这玩玩</p>
+<h2 id="快速构建">快速构建</h2>
+<ul>
+<li>首先创建了一个springboot 工程，总所周知</li>
+<li>然后加入shiro 相关依赖</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">        <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.shiro<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>shiro-spring-boot-web-starter<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version</span><span class="nt">&gt;</span>1.4.0<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><ul>
+<li>创建config文件进行相关配置
+<ul>
+<li>shiro中有三个重要的东西</li>
+<li>Subject:用户主体（关联SecurityManager，把操-作交给SecurityManager）</li>
+<li>SecurityManager：安全管理器（关联Realm）</li>
+<li>Realm：shiro连接数据库的桥梁</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShiroConfig</span> <span class="o">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 创建 ShiroFilterFactoryBean
+</span><span class="cm">     */</span>
+    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;shiroFilterFactoryBean&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ShiroFilterFactoryBean</span> <span class="nf">getShiroFilterFactoryBean</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;securityManager&#34;</span><span class="o">)</span> <span class="n">DefaultWebSecurityManager</span> <span class="n">securityManager</span><span class="o">)</span><span class="o">{</span>
+        <span class="n">ShiroFilterFactoryBean</span> <span class="n">shiroFilterFactoryBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShiroFilterFactoryBean</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//设置安全管理器
+</span><span class="c1"></span>        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setSecurityManager</span><span class="o">(</span><span class="n">securityManager</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">shiroFilterFactoryBean</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 创建DefaultWebSecurityManager
+</span><span class="cm">     *
+</span><span class="cm">     * shiro中securityManager用来管来 Realm
+</span><span class="cm">     */</span>
+    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;securityManager&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">DefaultWebSecurityManager</span> <span class="nf">getDefaultWebSecurityManager</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;userRealm&#34;</span><span class="o">)</span> <span class="n">UserRealm</span> <span class="n">userRealm</span><span class="o">)</span><span class="o">{</span>
+        <span class="c1">//创建管理类
+</span><span class="c1"></span>        <span class="n">DefaultWebSecurityManager</span> <span class="n">securityManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultWebSecurityManager</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//关联realm
+</span><span class="c1"></span>        <span class="n">securityManager</span><span class="o">.</span><span class="na">setRealm</span><span class="o">(</span><span class="n">userRealm</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">securityManager</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 创建Realm
+</span><span class="cm">     *
+</span><span class="cm">     *
+</span><span class="cm">     * 可以自定义Realm类
+</span><span class="cm">     */</span>
+    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;userRealm&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">UserRealm</span> <span class="nf">getRealm</span><span class="o">(</span><span class="o">)</span><span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">UserRealm</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>创建 realm</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserRealm</span> <span class="kd">extends</span> <span class="n">AuthorizingRealm</span> <span class="o">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 执行授权逻辑
+</span><span class="cm">     * @param principalCollection
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">AuthorizationInfo</span> <span class="nf">doGetAuthorizationInfo</span><span class="o">(</span><span class="n">PrincipalCollection</span> <span class="n">principalCollection</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;执行授权逻辑&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 执行认证逻辑
+</span><span class="cm">     * @param authenticationToken
+</span><span class="cm">     * @return
+</span><span class="cm">     * @throws AuthenticationException
+</span><span class="cm">     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">AuthenticationInfo</span> <span class="nf">doGetAuthenticationInfo</span><span class="o">(</span><span class="n">AuthenticationToken</span> <span class="n">authenticationToken</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">AuthenticationException</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;执行认证逻辑&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>这个时候进入html页面进行访问是可以的，但是如果ShiroFilterFactoryBean没有加入@Bean注解的话，无论你url怎么写，都会跳转到login.jsp页面，如果出现这种情况，记得检查自己的配置文件。</p>
+<h2 id="简单的权限管理">简单的权限管理</h2>
+<p>新建user 的add.html 和 update.html
+然后在 controller 里面（或者在webConfig下配置也可以）进行相关配置
+在index.html中使用超链接指向 这两个文件</p>
+<p>这个时候是可以进入的，因为我们还没在ShiroConfig中还没添加 Shiro内置的过滤器</p>
+<ul>
+<li>常用的过滤器
+<ul>
+<li>anon: 无需认证(登录) 就可以访问</li>
+<li>authc: 必须认证才可以访问</li>
+<li>user： rememberMe 后可以访问</li>
+<li>role: 该资源必须得到角色权限才可以访问</li>
+<li>perms: 该资源必须得到资源权限才可以访问</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;shiroFilterFactoryBean&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ShiroFilterFactoryBean</span> <span class="nf">getShiroFilterFactoryBean</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;securityManager&#34;</span><span class="o">)</span> <span class="n">DefaultWebSecurityManager</span> <span class="n">securityManager</span><span class="o">)</span><span class="o">{</span>
+        <span class="n">ShiroFilterFactoryBean</span> <span class="n">shiroFilterFactoryBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShiroFilterFactoryBean</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//设置安全管理器
+</span><span class="c1"></span>        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setSecurityManager</span><span class="o">(</span><span class="n">securityManager</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//添加shiro的内置过滤器
+</span><span class="c1"></span>        <span class="cm">/**
+</span><span class="cm">         * shiro内置过滤器
+</span><span class="cm">         * 用来对 url 拦截
+</span><span class="cm">         */</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">filterMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">filterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;/add&#34;</span><span class="o">,</span><span class="s">&#34;authc&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">filterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;/update&#34;</span><span class="o">,</span><span class="s">&#34;authc&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//调整登录页面，默认情况下为login.jsp
+</span><span class="c1"></span>        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setLoginUrl</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setFilterChainDefinitionMap</span><span class="o">(</span><span class="n">filterMap</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="k">return</span> <span class="n">shiroFilterFactoryBean</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>这个时候再访问 /add.html,/update.html 就会发现自动重定向到了 login.html</p>
+</article><section class="article labels"><a class="category" href=/categories/java/>java</a><a class="tag" href=/tags/shiro/>shiro</a></section></div><section class="article navigation"><p><a class="link" href="/post/markdown%E5%AD%A6%E4%B9%A0/"><span class="li">&rarr;</span>Markdown学习</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
+    <p class="copyright">©2020 gejigejiemmm.</p>
+    <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
+        target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
+        target="_blank">Notepadium</a></p>
+</div></section></div>
+</body>
+
+</html>
