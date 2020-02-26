@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2020 gejigejiemmm.</copyright>
-    <lastBuildDate>Tue, 25 Feb 2020 16:02:46 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 26 Feb 2020 12:45:46 +0800</lastBuildDate>
     
         <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Markdown学习</title>
+      <link>/post/markdown%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 26 Feb 2020 12:45:46 +0800</pubDate>
+      
+      <guid>/post/markdown%E5%AD%A6%E4%B9%A0/</guid>
+      <description>引用图片的方式 本地引用图片</description>
+    </item>
     
     <item>
       <title>hugo 配置文件</title>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>markdown on gejigejiemmm</title>
+    <link>/categories/markdown/</link>
+    <description>Recent content in markdown on gejigejiemmm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>©2020 gejigejiemmm.</copyright>
+    <lastBuildDate>Wed, 26 Feb 2020 12:45:46 +0800</lastBuildDate>
+    
+        <atom:link href="/categories/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Markdown学习</title>
+      <link>/post/markdown%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 26 Feb 2020 12:45:46 +0800</pubDate>
+      
+      <guid>/post/markdown%E5%AD%A6%E4%B9%A0/</guid>
+      <description>引用图片的方式 本地引用图片</description>
+    </item>
+    
+  </channel>
+</rss>
