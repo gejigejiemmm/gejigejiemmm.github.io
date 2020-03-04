@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>多线程 on gejigejiemmm</title>
+    <link>/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+    <description>Recent content in 多线程 on gejigejiemmm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>©2020 gejigejiemmm.</copyright>
+    <lastBuildDate>Wed, 04 Mar 2020 09:40:27 +0800</lastBuildDate>
+    
+        <atom:link href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>java 多线程的入门学习</title>
+      <link>/post/thread/</link>
+      <pubDate>Wed, 04 Mar 2020 09:40:27 +0800</pubDate>
+      
+      <guid>/post/thread/</guid>
+      <description>多线程 程序、进程、线程的基本概念 程序 是为了完成特定的任务，用某种语言编写的一组指令的集合。即指一段特定的静态的代码。 进程 正在运行中的程序，（</description>
+    </item>
+    
+  </channel>
+</rss>

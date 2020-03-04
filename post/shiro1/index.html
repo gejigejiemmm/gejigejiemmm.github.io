@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.64.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark"><title>Shiro的初步学习&nbsp;&ndash;&nbsp;gejigejiemmm</title><link rel="stylesheet" href="/css/core.min.a5d63d306fa53cba7bcef6c96fd6b55a008ea5736acaf25aace71f2bd7b379b2d97257d9c332e405e82f4f6e980f8409.css" integrity="sha384-pdY9MG&#43;lPLp7zvbJb9a1WgCOpXNqyvJarOcfK9ezebLZclfZwzLkBegvT26YD4QJ"><body>
+<meta name="supported-color-schemes" content="light dark"><title>Shiro的 入门学习&nbsp;&ndash;&nbsp;gejigejiemmm</title><link rel="stylesheet" href="/css/core.min.a5d63d306fa53cba7bcef6c96fd6b55a008ea5736acaf25aace71f2bd7b379b2d97257d9c332e405e82f4f6e980f8409.css" integrity="sha384-pdY9MG&#43;lPLp7zvbJb9a1WgCOpXNqyvJarOcfK9ezebLZclfZwzLkBegvT26YD4QJ"><body>
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/tomato.png" alt /><span class="site name">gejigejiemmm</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="https://github.com/gejigejiemmm/"target="_blank">Github</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">halo😊</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">Shiro的初步学习</h1><p class="article date">Wednesday, February 26, 2020</p></section><article class="article markdown-body"><h2 id="shiro的初步学习">shiro的初步学习</h2>
+    <h1 class="article title">Shiro的 入门学习</h1><p class="article date">Wednesday, February 26, 2020</p></section><article class="article markdown-body"><h2 id="shiro的初步学习">shiro的初步学习</h2>
 <p>shiro 是一个权限管理的框架，之前就听过，但一直没学习，寒假在家还不开学，实在玩不下去了，来学个这玩玩</p>
 <h2 id="快速构建">快速构建</h2>
 <ul>
-<li>首先创建了一个springboot 工程，总所周知</li>
+<li>首先创建了一个springboot 工程</li>
 <li>然后加入shiro 相关依赖</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">        <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
@@ -96,7 +96,7 @@
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>这个时候进入html页面进行访问是可以的，但是如果ShiroFilterFactoryBean没有加入@Bean注解的话，无论你url怎么写，都会跳转到login.jsp页面，如果出现这种情况，记得检查自己的配置文件。</p>
-<h2 id="简单的权限管理">简单的权限管理</h2>
+<h2 id="简单的认证管理">简单的认证管理</h2>
 <p>新建user 的add.html 和 update.html
 然后在 controller 里面（或者在webConfig下配置也可以）进行相关配置
 在index.html中使用超链接指向 这两个文件</p>
@@ -138,7 +138,81 @@
         <span class="k">return</span> <span class="n">shiroFilterFactoryBean</span><span class="o">;</span>
     <span class="o">}</span>
 </code></pre></div><p>这个时候再访问 /add.html,/update.html 就会发现自动重定向到了 login.html</p>
-</article><section class="article labels"><a class="category" href=/categories/java/>java</a><a class="tag" href=/tags/shiro/>shiro</a></section></div><section class="article navigation"><p><a class="link" href="/post/markdown%E5%AD%A6%E4%B9%A0/"><span class="li">&rarr;</span>Markdown学习</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
+<h4 id="如果需要登录验证的话-修改realm">如果需要登录验证的话 修改Realm</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">protected</span> <span class="n">AuthenticationInfo</span> <span class="nf">doGetAuthenticationInfo</span><span class="o">(</span><span class="n">AuthenticationToken</span> <span class="n">authenticationToken</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">AuthenticationException</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;执行认证逻辑&#34;</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="n">UsernamePasswordToken</span> <span class="n">token</span> <span class="o">=</span> <span class="o">(</span><span class="n">UsernamePasswordToken</span><span class="o">)</span><span class="n">authenticationToken</span><span class="o">;</span>
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">findUser</span><span class="o">(</span><span class="n">token</span><span class="o">.</span><span class="na">getUsername</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">=</span><span class="o">=</span> <span class="kc">null</span><span class="o">)</span><span class="o">{</span>
+            <span class="c1">//如果返回 null  shiro会帮我们抛出一个 UnknownAccountException
+</span><span class="c1"></span>            <span class="c1">//也就是用户不存在
+</span><span class="c1"></span>            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">//判断密码
+</span><span class="c1"></span>        <span class="c1">//SimpleAuthenticationInfo 是 AuthenticationInfo的子类
+</span><span class="c1"></span>        <span class="k">return</span> <span class="k">new</span> <span class="n">SimpleAuthenticationInfo</span><span class="o">(</span><span class="n">user</span><span class="o">,</span><span class="n">user</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(</span><span class="o">)</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="简单的授权管理">简单的授权管理</h2>
+<p>有的时候我们需要对特定资源进行授权，当登录的用户有这个权限的时候才允许访问。</p>
+<p>比如说现在有个需求是
+两个账户halo和tu
+halo拥有insert权限
+tu拥有update权限</p>
+<p>这个时候我们需要在过滤器对 url 添加所对应的权限</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;shiroFilterFactoryBean&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ShiroFilterFactoryBean</span> <span class="nf">getShiroFilterFactoryBean</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;securityManager&#34;</span><span class="o">)</span> <span class="n">DefaultWebSecurityManager</span> <span class="n">securityManager</span><span class="o">)</span><span class="o">{</span>
+        <span class="n">ShiroFilterFactoryBean</span> <span class="n">shiroFilterFactoryBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShiroFilterFactoryBean</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//设置安全管理器
+</span><span class="c1"></span>        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setSecurityManager</span><span class="o">(</span><span class="n">securityManager</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">filterMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">filterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;/add&#34;</span><span class="o">,</span><span class="s">&#34;authc&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">filterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;/update&#34;</span><span class="o">,</span><span class="s">&#34;authc&#34;</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="c1">//调整登录页面
+</span><span class="c1"></span>        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setLoginUrl</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="c1">//授权过滤器
+</span><span class="c1"></span>        <span class="n">filterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;/add&#34;</span><span class="o">,</span><span class="s">&#34;perms[user:add]&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">filterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;/update&#34;</span><span class="o">,</span><span class="s">&#34;perms[user:update]&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//设置未授权的页面
+</span><span class="c1"></span>        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setUnauthorizedUrl</span><span class="o">(</span><span class="s">&#34;/noAuth&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setFilterChainDefinitionMap</span><span class="o">(</span><span class="n">filterMap</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">shiroFilterFactoryBean</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>然后在Realm中编写 认证逻辑
+注意：
+如果你要通过 subject.getPrincipal() 来获取当前登录的用户的话，你需要在 doGetAuthenticationInfo方法中最后修改成
+第一个参数就是你要返回的值
+第二个参数用来验证密码</p>
+<p>return new SimpleAuthenticationInfo(user,user.getPassword(),&quot;&quot;);</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">protected</span> <span class="n">AuthorizationInfo</span> <span class="nf">doGetAuthorizationInfo</span><span class="o">(</span><span class="n">PrincipalCollection</span> <span class="n">principalCollection</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;执行授权逻辑&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//给资源进行授权
+</span><span class="c1"></span>        <span class="n">SimpleAuthorizationInfo</span> <span class="n">info</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleAuthorizationInfo</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//对 user:add 进行授权
+</span><span class="c1"></span><span class="c1">//        info.addStringPermission(&#34;user:add&#34;);
+</span><span class="c1"></span>
+        <span class="c1">//获取当前登录的用户
+</span><span class="c1"></span>        <span class="c1">//其实我觉得这步没必要，又去数据库查了，较好的做法应该在登录的时候就一次性拿出权限
+</span><span class="c1"></span>        <span class="n">Subject</span> <span class="n">subject</span> <span class="o">=</span> <span class="n">SecurityUtils</span><span class="o">.</span><span class="na">getSubject</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span> <span class="n">subject</span><span class="o">.</span><span class="na">getPrincipal</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">info</span><span class="o">.</span><span class="na">addStringPermission</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getPerms</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">info</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>如果没有权限的话，会跳转到setUnauthorizedUrl()设置的  url</p>
+</article><section class="article labels"><a class="category" href=/categories/java/>java</a><a class="tag" href=/tags/shiro/>shiro</a></section></div><section class="article navigation"><p><a class="link" href="/post/giligili-docker%E9%85%8D%E7%BD%AE/"><span class="li">&larr;</span>giligili docker-portainer 配置</a></p><p><a class="link" href="/post/markdown%E5%AD%A6%E4%B9%A0/"><span class="li">&rarr;</span>Markdown学习</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
     <p class="copyright">©2020 gejigejiemmm.</p>
     <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
         target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 

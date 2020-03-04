@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on gejigejiemmm</title>
+    <link>/tags/go/</link>
+    <description>Recent content in go on gejigejiemmm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>©2020 gejigejiemmm.</copyright>
+    <lastBuildDate>Thu, 27 Feb 2020 11:10:46 +0800</lastBuildDate>
+    
+        <atom:link href="/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>giligili docker-portainer 配置</title>
+      <link>/post/giligili-docker%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Thu, 27 Feb 2020 11:10:46 +0800</pubDate>
+      
+      <guid>/post/giligili-docker%E9%85%8D%E7%BD%AE/</guid>
+      <description>stack go version:&amp;#39;2&amp;#39;services:api:image:registry.cn-shenzhen.aliyuncs.com/gejigeji/gili-api:v1.1.3restart:alwaysenvironment:MYSQL_DSN:&amp;#34;root:huyihan@tcp(172.17.33.111:3306)/giligili?charset=utf8&amp;amp;parseTime=True&amp;amp;loc=Local&amp;#34;REDIS_ADDR:&amp;#34;172.17.33.111:6379&amp;#34;REDIS_PW:&amp;#34;&amp;#34;REDIS_DB:&amp;#34;0&amp;#34;SESSION_SECRE:&amp;#34;fRJ%KVZVoq4Du4#*Rx&amp;#34;GIN_MODE:&amp;#34;release&amp;#34;ports:- 3000:3000vue version:&amp;#39;2&amp;#39;services:nginx:image:registry.cn-shenzhen.aliyuncs.com/gejigeji/giligili:v0.1.1restart:alwaysports:- 3001:80redis version:&amp;#39;2&amp;#39;services:redis:image:redisrestart:alwaysvolumes:- redis_data:/dataports:- 6379:6379mysql 直接http连接</description>
+    </item>
+    
+  </channel>
+</rss>

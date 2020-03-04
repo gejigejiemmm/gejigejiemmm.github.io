@@ -7,13 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2020 gejigejiemmm.</copyright>
-    <lastBuildDate>Wed, 26 Feb 2020 20:08:17 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 29 Feb 2020 21:57:37 +0800</lastBuildDate>
     
         <atom:link href="/tags/shiro/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Shiro的初步学习</title>
+      <title>Shiro 中简单的认证和角色权限管理</title>
+      <link>/post/shiro2/</link>
+      <pubDate>Sat, 29 Feb 2020 21:57:37 +0800</pubDate>
+      
+      <guid>/post/shiro2/</guid>
+      <description>数据库相关信息 要想对角色权限进行管理的话，至少需要五张表，无论是一个人拥有一个角色，或者多个角色，都需要五张表 分别是 用户表，角色表，用户_角</description>
+    </item>
+    
+    <item>
+      <title>Shiro的 入门学习</title>
       <link>/post/shiro1/</link>
       <pubDate>Wed, 26 Feb 2020 20:08:17 +0800</pubDate>
       
