@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.64.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark"><title>Java8&nbsp;&ndash;&nbsp;gejigejiemmm</title><link rel="stylesheet" href="/css/core.min.a5d63d306fa53cba7bcef6c96fd6b55a008ea5736acaf25aace71f2bd7b379b2d97257d9c332e405e82f4f6e980f8409.css" integrity="sha384-pdY9MG&#43;lPLp7zvbJb9a1WgCOpXNqyvJarOcfK9ezebLZclfZwzLkBegvT26YD4QJ"><body>
+    <div class="base-body"><section id="header" class="site header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/tomato.png" alt /><span class="site name">gejigejiemmm</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="https://github.com/gejigejiemmm/"target="_blank">Github</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">halo😊</span></div></section><div id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">Java8</h1><p class="article date">Wednesday, March 11, 2020</p></section><article class="article markdown-body"><h2 id="小序">小序</h2>
+<p>第一次学java 就是用的jdk8，但在当时并不知道8的新特性。前半年学习过一次，但也就是过一遍，这次再来学习记录一下。</p>
+<h2 id="lambda-表达式">lambda 表达式</h2>
+<p>lambda 表达式可以省去不部分代码，并且让我们自己的代码看起来简洁。方便了开发。</p>
+<p>具体例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//未使用 lambda
+</span><span class="c1"></span>        <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">c1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Integer</span> <span class="n">o1</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">o1</span><span class="o">,</span><span class="n">o2</span><span class="o">)</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span><span class="o">;</span>
+
+        <span class="c1">//使用 lambda 表达式
+</span><span class="c1"></span>        <span class="c1">//lambda 表达式可以省去部分代码，让我们的代码看起来更简洁
+</span><span class="c1"></span>        <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">c2</span> <span class="o">=</span> <span class="o">(</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">o1</span><span class="o">,</span><span class="n">o2</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="c1">//方法引用
+</span><span class="c1"></span>        <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">:</span><span class="o">:</span><span class="n">compare</span><span class="o">;</span>
+</code></pre></div><p>但需要注意的是，只有当接口有一个抽象类方法的时候，才可以使用lambda表达式
+lambda 表达式会进行类型推断。如例子中 o1 ，o2因为 前边Comparator<Integer> 已经定义了范型 Integer  所以这里的 o1,o2就是Integer 类型</p>
+<p>当只有一个参数时，()可以省略
+当只有一条语句时（可能是return语句）的时候{}和 return可以省略</p>
+<h2 id="函数式接口">函数式接口</h2>
+<p>在 java8里新加了函数式接口的概念。函数式接口是什么呢？
+如果一个接口只有一个抽象方法，那么这个接口就可以称之为函数式接口
+通常会用 @FunctionalInterface 来标识
+我们同样可以自定义函数式接口</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@FunctionalInterface</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyFunctionInterface</span> <span class="o">{</span>
+    
+    <span class="kt">void</span> <span class="nf">method</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>@FunctionalInterface 会帮我们检测我们的接口是否符合 函数式接口的定义</p>
+<p>lambda 表达式依赖于函数式接口，其本质就是作为 函数式接口的实例</p>
+<h3 id="java-内置的函数式接口">java 内置的函数式接口</h3>
+<h4 id="consumert-消费型接口">Consumer<T> 消费型接口</h4>
+<p>参数类型为 T ：接收一个T类型的值，没有返回值
+包含方法 void accept (T t)
+🌰:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testConsumer</span><span class="o">(</span><span class="o">)</span><span class="o">{</span>
+        
+        <span class="c1">//java8 之前
+</span><span class="c1"></span>        <span class="n">happyTime</span><span class="o">(</span><span class="n">500</span><span class="o">.</span><span class="na">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Double</span> <span class="n">aDouble</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;看电影和吃饭消费了&#34;</span> <span class="o">+</span> <span class="n">aDouble</span><span class="o">)</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span><span class="o">)</span><span class="o">;</span>
+        
+        <span class="c1">//lambda 表达式
+</span><span class="c1"></span>        <span class="n">happyTime</span><span class="o">(</span><span class="n">500</span><span class="o">.</span><span class="na">0</span><span class="o">,</span><span class="n">money</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;看电影和吃饭消费了&#34;</span> <span class="o">+</span> <span class="n">money</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">happyTime</span><span class="o">(</span><span class="n">Double</span> <span class="n">money</span><span class="o">,</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">con</span><span class="o">)</span><span class="o">{</span>
+        <span class="n">con</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">money</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="suppliert-供给型接口">Supplier<T> 供给型接口</h4>
+<p>没有参数，返回一个T类型的值
+包含方法 T get()</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//lambda 表达式
+</span><span class="c1"></span>        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sup</span> <span class="o">=</span> <span class="o">(</span><span class="o">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">employee</span><span class="o">.</span><span class="na">getName</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sup</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><h4 id="functiontr-函数型接口">Function&lt;T,R&gt; 函数型接口</h4>
+<p>参数类型为T，返回类型为R：接收一个 T类型的值进行操作，但返回结果为R类型
+包含方法 R apply(T t)</p>
+<h4 id="predicatet-断定型接口">Predicate<T> 断定型接口</h4>
+<p>进行判断的，接受参数为T的类型，返回一个boolean类型的值
+包含方法 boolean test(T t)
+举个🌰：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testPredicate</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;北京&#34;</span><span class="o">,</span><span class="s">&#34;南京&#34;</span><span class="o">,</span><span class="s">&#34;天津&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//过滤出带有 京 的字符串
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">filterString</span> <span class="o">=</span> <span class="n">filterString</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">string</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">string</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;京&#34;</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">filterString</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">filterString</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strings</span><span class="o">,</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">pre</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">strings</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">pre</span><span class="o">.</span><span class="na">test</span><span class="o">(</span><span class="n">s</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">)</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="方法引用">方法引用</h2>
+<p>当要传递给lambda 体的操作已经有实现的方法时，就可以使用方法引用</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//lambda 表达式
+</span><span class="c1"></span>        <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">s</span><span class="o">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">con</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="s">&#34;halo&#34;</span><span class="o">)</span><span class="o">;</span>
+        
+        <span class="c1">//方法引用的方式
+</span><span class="c1"></span>        <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">con1</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">;</span>
+        <span class="n">con1</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="s">&#34;halo&#34;</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><p>可以看到 Consumer的 accpet方法的接收参数是 字符串类型 s，而且System.out.println也可以接收 字符串 s，这个时候就可以使用方法引用 类名（对象名）::方法名
+方法引用 是对 lambda 表达式的进一步简化操作。</p>
+<p>我觉得可以简单这样理解： 你的参数和返回值 和你 要引用的参数和返回值一致，就可以使用方法引用。</p>
+<ul>
+<li>对象名::非静态方法</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//lambda 表达式
+</span><span class="c1"></span>        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sup</span> <span class="o">=</span> <span class="o">(</span><span class="o">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">employee</span><span class="o">.</span><span class="na">getName</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sup</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//方法引用
+</span><span class="c1"></span>        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sup1</span> <span class="o">=</span> <span class="n">employee</span><span class="o">:</span><span class="o">:</span><span class="n">getName</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sup1</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><ul>
+<li>类名::静态方法</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">comparator1</span> <span class="o">=</span> <span class="o">(</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">comparator1</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        
+        <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">comparator2</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">:</span><span class="o">:</span><span class="n">compare</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">comparator2</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><ul>
+<li>类名::非静态方法
+这种使用就比较特殊了，它并不符合 参数和返回值相同就可以使用 方法引用 的原则。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">com</span> <span class="o">=</span> <span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">s1</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">s2</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">com</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="s">&#34;abc&#34;</span><span class="o">,</span><span class="s">&#34;abd&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">com2</span> <span class="o">=</span> <span class="n">String</span><span class="o">:</span><span class="o">:</span><span class="n">compareTo</span><span class="o">;</span>
+        <span class="n">com2</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="s">&#34;abc&#34;</span><span class="o">,</span><span class="s">&#34;abd&#34;</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><p>第一个参数作为了方法调用者出现, s1.compareTo(s2)，这个时候也是可以 方法引用的。</p>
+<h2 id="stream-api">Stream API</h2>
+<p>java8 另一个重要的改变就是 Stream API，它给我们提供了对集合数据的操作，有点类似于 sql 的查询操作。当 数据库使用 nosql 的时候，岂不是能出现神奇的效果。
+相比于Collection在内存中的存储，stream 更多的是是对数据的操作。</p>
+<p>Stream 有三个步骤
+创建  -&gt;  中间操作  -&gt; 终止操作</p>
+<ul>
+<li>
+<p>创建：通过  集合，数组，获取一个 stream对象</p>
+</li>
+<li>
+<p>中间操作：一个中间操作链，对数据执行完操作后返回当前这个 stream对象，是链式的。中间操作在没有执行 终止操作 前是不会 执行的。</p>
+</li>
+<li>
+<p>终止操作：一旦执行，就会产生结果，之后这个stream 不能再被使用</p>
+</li>
+</ul>
+<h3 id="stream-的创建">Stream 的创建</h3>
+<p>这个就比较简单了，java8在 Collection 接口中添加了 stream的默认方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;java8&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;nihao&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//返回一个顺序流
+</span><span class="c1"></span>        <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">strings</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//返回一个并行流
+</span><span class="c1"></span>        <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stringStream</span> <span class="o">=</span> <span class="n">strings</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><p>当然你也可以通过数组来获取，而且 Stream中也有一个of()的静态方法来获取 stream 对象</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stringStream1</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;123&#34;</span><span class="o">,</span> <span class="s">&#34;456&#34;</span><span class="o">,</span> <span class="s">&#34;789&#34;</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><h3 id="stream-的中间操作">Stream 的中间操作</h3>
+<h4 id="筛选与切片">筛选与切片</h4>
+<ul>
+<li>filter(Predicate p) 从流中排出某些元素</li>
+<li>limit(n) 截断流，使流中元素个数不超过n</li>
+<li>skip(n) 跳过元素，返回一个扔掉前n个的流，若流中元素个数不足n个，则返回一个空流</li>
+<li>distinct() 筛选去除重复元素</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;java8&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;nihao&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;nihao&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//去除a这个元素
+</span><span class="c1"></span>        <span class="n">strings</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="o">(</span><span class="n">s</span> <span class="o">-</span><span class="o">&gt;</span> <span class="o">!</span><span class="n">s</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">)</span><span class="o">)</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//只要前两个元素
+</span><span class="c1"></span>        <span class="n">strings</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">limit</span><span class="o">(</span><span class="n">2</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//去除前两个元素
+</span><span class="c1"></span>        <span class="n">strings</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">skip</span><span class="o">(</span><span class="n">2</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//去除重复元素 nihao 
+</span><span class="c1"></span>        <span class="n">strings</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">distinct</span><span class="o">(</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><h4 id="映射">映射</h4>
+<h5 id="map">map</h5>
+<p>map(Function f) 接收一个一个函数作为参数（lambda表达式），该函数会被作用到每一个元素上，并将其映射成一个新的元素.(也就是 函数型接口)
+将集合中所有的字符串变为大写,并过滤出长度大于2的字符串</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stringStream</span>  <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;aa&#34;</span><span class="o">,</span> <span class="s">&#34;bb&#34;</span><span class="o">,</span> <span class="s">&#34;cc&#34;</span><span class="o">,</span> <span class="s">&#34;ddd&#34;</span><span class="o">,</span> <span class="s">&#34;eeee&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">stringStream</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="o">(</span><span class="n">s</span><span class="o">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">s</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">(</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">2</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><h5 id="flatmap">flatMap</h5>
+<p>flatMap(Function f)接收一个函数作为参数，将流中的每一个元素都变成另一种类型单独的流，再将所有的流合成一个流
+这个方法有点难度。
+可以举个例子看一下,还是上边的 stringStream</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[</span><span class="o">]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//可以看一下返回类型是 Stream&lt;Stream&lt;Character&gt;&gt;  这种套娃型的
+</span><span class="c1"></span>            <span class="n">Stream</span><span class="o">&lt;</span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span><span class="o">&gt;</span> <span class="n">streamStream</span> <span class="o">=</span> <span class="n">stringStream</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">Test</span><span class="o">:</span><span class="o">:</span><span class="n">fromStringToStream</span><span class="o">)</span><span class="o">;</span>
+            <span class="c1">//如果这时要进行元素便利的话,需要进行双层循环
+</span><span class="c1"></span>            <span class="n">streamStream</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">characterStream</span> <span class="o">-</span><span class="o">&gt;</span> <span class="o">{</span>
+                <span class="n">characterStream</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+            <span class="o">}</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="nf">fromStringToStream</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">Character</span> <span class="n">c</span> <span class="o">:</span> <span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">(</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">c</span><span class="o">)</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+</code></pre></div><p>Stream&lt; Stream&lt; Character &raquo;这种套娃型的stream 最好使用 flatMap，它会自动帮你把这些里边的全部的Stream&lt; Character &gt;打开变成一个 Stream&lt; Character &gt;
+使用flatMap后就变成了：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">stringStream</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">Test</span><span class="o">:</span><span class="o">:</span><span class="n">fromStringToStream</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><p>看起来简洁的许多。</p>
+<h3 id="stream-的终止操作">stream 的终止操作</h3>
+<h4 id="匹配和分类">匹配和分类</h4>
+<ul>
+<li>allMatch(Predicate p) 接收一个断定型接口，判断是否所有元素符合条件，符合则返回true</li>
+<li>anyMatch(Predicate p) 判断是否有一个元素符合条件，如果符合，返回true</li>
+<li>noneMatch(Predicate p) 检查是否没有匹配的元素，如果有匹配上的，返回false</li>
+<li>findFirst() 获取第一个元素</li>
+<li>findAny() 返回流中任意一个元素</li>
+<li>count() 获取流中元素的个数</li>
+<li>max(Comparator com)</li>
+<li>min(Comparator com)</li>
+<li>forEach(Consumer con)</li>
+</ul>
+<h4 id="归约">归约</h4>
+<ul>
+<li>reduce(T identity, BinaryOperator) 将流中的元素反复结合起来，得到一个值, identity 是初始值。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//reduce(T identity, BinaryOperator) 将流中的元素反复结合起来，得到一个值, identity 是初始值。
+</span><span class="c1"></span>        <span class="c1">//1 + 2 的结果再作为第一个值，再将第三个元素3作为第二值，循环往复
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">integers</span>  <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">5</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">Integer</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">integers</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">reduce</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">Integer</span><span class="o">:</span><span class="o">:</span><span class="n">sum</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><p>1 + 2 的结果再作为第一个值，再将第三个元素3作为第二值，两次再次相加的结果作为第一值，循环往复。
+当然如果你不是设置identity的值的话，reduce(BinaryOperator)还是有这个只有一个形参的方法，只不过返回的是一个optoinal&lt;&gt;的值</p>
+<h4 id="收集">收集</h4>
+<p>collet(Collector c) 将流中的结果转换成一个Collector（集合）出来</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//获取元素长度大于2的集合
+</span><span class="c1"></span>       <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">collect</span> <span class="o">=</span> <span class="n">stringStream</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="o">)</span>
+               <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">s</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">(</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">2</span><span class="o">)</span>
+               <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div></article><section class="article labels"><a class="category" href=/categories/java/>java</a><a class="tag" href=/tags/java%E9%AB%98%E7%BA%A7/>java高级</a></section></div><section class="article navigation"><p><a class="link" href="/post/mybatisplus/"><span class="li">&larr;</span>Mybatisplus</a></p><p><a class="link" href="/post/reflection/"><span class="li">&rarr;</span>java中的反射</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
+    <p class="copyright">©2020 gejigejiemmm.</p>
+    <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
+        target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
+        target="_blank">Notepadium</a></p>
+</div></section></div>
+</body>
+
+</html>

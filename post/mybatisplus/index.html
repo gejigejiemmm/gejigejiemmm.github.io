@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.64.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark"><title>Mybatisplus&nbsp;&ndash;&nbsp;gejigejiemmm</title><link rel="stylesheet" href="/css/core.min.a5d63d306fa53cba7bcef6c96fd6b55a008ea5736acaf25aace71f2bd7b379b2d97257d9c332e405e82f4f6e980f8409.css" integrity="sha384-pdY9MG&#43;lPLp7zvbJb9a1WgCOpXNqyvJarOcfK9ezebLZclfZwzLkBegvT26YD4QJ"><body>
+    <div class="base-body"><section id="header" class="site header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/tomato.png" alt /><span class="site name">gejigejiemmm</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="https://github.com/gejigejiemmm/"target="_blank">Github</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">halo😊</span></div></section><div id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">Mybatisplus</h1><p class="article date">Wednesday, March 11, 2020</p></section><article class="article markdown-body"><p>最近突然想学一下mybatis-plus希望尽快提上日程吧。
+好了，提上日程，冲冲冲</p>
+<h2 id="快速开始">快速开始</h2>
+<p>这里贴一个官网连接 <a href="https://mp.baomidou.com/guide/quick-start.html#%E9%85%8D%E7%BD%AE"target="_blank">mybatis-plus</a>
+照着他们一步步来就可以了，有些省事，但确实写的非常详细。</p>
+<h3 id="basemapper-中的-insert方法的默认-策略">BaseMapper 中的 insert方法的默认 策略</h3>
+<p>在 mp(mybatis-plus) 中，你是用 insert方法的时候，是会自动将id 回填到的对象中的，但是默认情况生成的是这种一连串的 数字</p>
+<p><a target="_blank" rel="noopener noreferrer" 
+  href="/img/mp-insert.png"><img  src="/img/mp-insert.png"
+        alt="mp-insert"/></a></p>
+<p>这种生成方式，采用的是 Twitter的雪花算法，具体了解可百度，保证了分布式的情况下id也唯一。</p>
+<p>如果你想使用 主键自增的方式，你需要将数据库表中的 主键自增打开，然后在 id 属性上加 @TableId(type = IdType.AUTO)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="c1">//主键自增
+</span><span class="c1"></span>    <span class="nd">@TableId</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">IdType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">email</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>虽然分布式下采用默认的生成策略较好，但是毕竟身为大三狗，我写的也都是小项目。所以就先用自增吧。</p>
+<p><a href="https://mp.baomidou.com/guide/annotation.html#tableid"target="_blank">@TableId 具体属性自行查看哦</a></p>
+<h3 id="update-方法">update 方法</h3>
+<p>mp的 update 是 执行的是动态sql, 也就是条件修改</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">1238647983271899149L</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">20</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">userMapper</span><span class="o">.</span><span class="na">updateById</span><span class="o">(</span><span class="n">user</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>你对象里没有的字段，是不会进行修改的</p>
+<p><a target="_blank" rel="noopener noreferrer" 
+  href="/img/mp-update.png"><img  src="/img/mp-update.png"
+        alt="mp-update.png"/></a></p>
+<h4 id="关于-create_time-和-update_time-的问题">关于 create_time 和 update_time 的问题</h4>
+<p>在阿里开发手册中写了，数据表必须要有这两个字段。
+所以不免会想到，这两个字段能不能自动生成或更新，不通过每次创建时间。</p>
+<p>一般有两种策略
+之前我用的就是这种</p>
+<ul>
+<li>
+<p>数据库自动生成
+<a target="_blank" rel="noopener noreferrer" 
+  href="/img/mp-datetime.png"><img  src="/img/mp-datetime.png"
+        alt="mp-datetime.png"/></a>
+对这两个字段设置默认值为 CURRENT_TIMESTAMP ，update需要在 根据时间戳更新那里打上勾</p>
+</li>
+<li>
+<p>mp 生成自动填充</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">//插入的时候自动填充
+</span><span class="c1"></span>    <span class="nd">@TableField</span><span class="o">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">FieldFill</span><span class="o">.</span><span class="na">INSERT</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">createTime</span><span class="o">;</span>
+    <span class="c1">//插入和更新的时候自动填充
+</span><span class="c1"></span>    <span class="nd">@TableField</span><span class="o">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">FieldFill</span><span class="o">.</span><span class="na">INSERT_UPDATE</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">updateTime</span><span class="o">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//自动填充 增强类 这里的cretaeTime是实体类属性而不是数据库字段名
+</span><span class="c1"></span><span class="nd">@Slf4j</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyMetaObjectHandler</span> <span class="kd">implements</span> <span class="n">MetaObjectHandler</span> <span class="o">{</span>
+
+    <span class="c1">//插入填充
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertFill</span><span class="o">(</span><span class="n">MetaObject</span> <span class="n">metaObject</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//自动填充时间
+</span><span class="c1"></span>        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;insertFill running&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//三个参数分别是 字段名，填充值，元数据
+</span><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">setFieldValByName</span><span class="o">(</span><span class="s">&#34;createTime&#34;</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">(</span><span class="o">)</span><span class="o">,</span><span class="n">metaObject</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">setFieldValByName</span><span class="o">(</span><span class="s">&#34;updateTime&#34;</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">(</span><span class="o">)</span><span class="o">,</span><span class="n">metaObject</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//更新填充
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateFill</span><span class="o">(</span><span class="n">MetaObject</span> <span class="n">metaObject</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//自动填充时间
+</span><span class="c1"></span>        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;updateFill running&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//三个参数分别是 字段名，填充值，元数据
+</span><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">setFieldValByName</span><span class="o">(</span><span class="s">&#34;updateTime&#34;</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">(</span><span class="o">)</span><span class="o">,</span><span class="n">metaObject</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="查询">查询</h3>
+<h4 id="批量查询">批量查询</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@Test</span>
+    <span class="c1">//批量查询 in(1, 2, 3)
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="nf">testSelectBatchIds</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectBatchIds</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="条件查询">条件查询</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">//简单的 条件查询
+</span><span class="c1"></span>    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">testSelectByMap</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span><span class="s">&#34;hello&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">,</span><span class="s">&#34;geji@qq.com&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectByMap</span><span class="o">(</span><span class="n">map</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="分页查询">分页查询</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">testSelectPage</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Page</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userPage</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Page</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">5</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">userMapper</span><span class="o">.</span><span class="na">selectPage</span><span class="o">(</span><span class="n">userPage</span><span class="o">,</span> <span class="kc">null</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">userPage</span><span class="o">.</span><span class="na">getRecords</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">records</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">:</span><span class="o">:</span><span class="n">println</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h3 id="逻辑删除">逻辑删除</h3>
+<p>数据库添加逻辑字段
+在实体类里也添加字段</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">//表示当前字段为逻辑删除字段，默认1删除，0未删除
+</span><span class="c1"></span>    <span class="nd">@TableLogic</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">isDeleted</span><span class="o">;</span>
+</code></pre></div><h3 id="代码生成器">代码生成器</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">testCodeGenerator</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//1.创建代码生成器
+</span><span class="c1"></span>        <span class="n">AutoGenerator</span> <span class="n">mpg</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AutoGenerator</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="c1">//2.全局配置
+</span><span class="c1"></span>        <span class="n">GlobalConfig</span> <span class="n">gc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlobalConfig</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//获取当前项目的路径
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">projectPath</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;user.dir&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">gc</span><span class="o">.</span><span class="na">setOutputDir</span><span class="o">(</span><span class="n">projectPath</span> <span class="o">+</span> <span class="s">&#34;/src/main/java&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">gc</span><span class="o">.</span><span class="na">setAuthor</span><span class="o">(</span><span class="s">&#34;geji&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//生成后是否打开资源管理器
+</span><span class="c1"></span>        <span class="n">gc</span><span class="o">.</span><span class="na">setOpen</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//生成文件的时候是否重新覆盖
+</span><span class="c1"></span>        <span class="n">gc</span><span class="o">.</span><span class="na">setFileOverride</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//设置主键策略
+</span><span class="c1"></span>        <span class="n">gc</span><span class="o">.</span><span class="na">setIdType</span><span class="o">(</span><span class="n">IdType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//设置Service首字母去除I
+</span><span class="c1"></span>        <span class="n">gc</span><span class="o">.</span><span class="na">setServiceName</span><span class="o">(</span><span class="s">&#34;%sService&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//设置日期类型
+</span><span class="c1"></span>        <span class="n">gc</span><span class="o">.</span><span class="na">setDateType</span><span class="o">(</span><span class="n">DateType</span><span class="o">.</span><span class="na">TIME_PACK</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//实体属性 Swagger2 注解
+</span><span class="c1"></span>        <span class="n">gc</span><span class="o">.</span><span class="na">setSwagger2</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">mpg</span><span class="o">.</span><span class="na">setGlobalConfig</span><span class="o">(</span><span class="n">gc</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="c1">//3.数据源配置
+</span><span class="c1"></span>        <span class="n">DataSourceConfig</span> <span class="n">dsc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataSourceConfig</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dsc</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">&#34;jdbc:mysql://127.0.0.1:3306/mybatis-plus?serverTimezone=Asia/Shanghai&amp;useUnicode=yes&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">// dsc.setSchemaName(&#34;public&#34;);
+</span><span class="c1"></span>        <span class="n">dsc</span><span class="o">.</span><span class="na">setDriverName</span><span class="o">(</span><span class="s">&#34;com.mysql.cj.jdbc.Driver&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dsc</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">&#34;root&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">dsc</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="s">&#34;123456&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">mpg</span><span class="o">.</span><span class="na">setDataSource</span><span class="o">(</span><span class="n">dsc</span><span class="o">)</span><span class="o">;</span>
+
+
+        <span class="c1">// 包配置
+</span><span class="c1"></span>        <span class="n">PackageConfig</span> <span class="n">pc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PackageConfig</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+<span class="c1">//        pc.setModuleName(scanner(&#34;模块名&#34;));
+</span><span class="c1"></span>        <span class="n">pc</span><span class="o">.</span><span class="na">setParent</span><span class="o">(</span><span class="s">&#34;cn.edu.zzuli.MybatisPlusGenerate&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">pc</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="s">&#34;entity&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">pc</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="s">&#34;controller&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">pc</span><span class="o">.</span><span class="na">setService</span><span class="o">(</span><span class="s">&#34;service&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">pc</span><span class="o">.</span><span class="na">setMapper</span><span class="o">(</span><span class="s">&#34;mapper&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">mpg</span><span class="o">.</span><span class="na">setPackageInfo</span><span class="o">(</span><span class="n">pc</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//策略配置
+</span><span class="c1"></span>        <span class="n">StrategyConfig</span> <span class="n">strategy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StrategyConfig</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//strategy.setInclude(&#34;xxx&#34;+&#34;_\\w*&#34;);//映射的表名
+</span><span class="c1"></span>        <span class="c1">//strategy.setTablePrefix(&#34;xxx_&#34;);//不生成表的前缀
+</span><span class="c1"></span>        <span class="n">strategy</span><span class="o">.</span><span class="na">setNaming</span><span class="o">(</span><span class="n">NamingStrategy</span><span class="o">.</span><span class="na">underline_to_camel</span><span class="o">)</span><span class="o">;</span><span class="c1">//驼峰策略
+</span><span class="c1"></span>        <span class="c1">//strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+</span><span class="c1"></span>
+        <span class="c1">//自动添加 lombok的注解
+</span><span class="c1"></span>        <span class="n">strategy</span><span class="o">.</span><span class="na">setEntityLombokModel</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="na">setLogicDeleteFieldName</span><span class="o">(</span><span class="s">&#34;is_deleted&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//去除boolean值的前缀
+</span><span class="c1"></span>        <span class="c1">//strategy.setEntityBooleanColumnRemoveIsPrefix(true);
+</span><span class="c1"></span>
+        <span class="c1">//生成自动填充
+</span><span class="c1"></span>        <span class="n">TableFill</span> <span class="n">createTime</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TableFill</span><span class="o">(</span><span class="s">&#34;create_time&#34;</span><span class="o">,</span> <span class="n">FieldFill</span><span class="o">.</span><span class="na">INSERT</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">TableFill</span> <span class="n">updateTime</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TableFill</span><span class="o">(</span><span class="s">&#34;update_time&#34;</span><span class="o">,</span> <span class="n">FieldFill</span><span class="o">.</span><span class="na">INSERT_UPDATE</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">TableFill</span><span class="o">&gt;</span> <span class="n">tableFills</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">tableFills</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">createTime</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">tableFills</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">updateTime</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="na">setTableFillList</span><span class="o">(</span><span class="n">tableFills</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//生成乐观锁的列，version 字段，这里我没有用，就注释掉
+</span><span class="c1"></span>        <span class="c1">//strategy.setVersionFieldName(&#34;version&#34;);
+</span><span class="c1"></span>
+        <span class="c1">//RestFul API
+</span><span class="c1"></span>        <span class="n">strategy</span><span class="o">.</span><span class="na">setRestControllerStyle</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">//url 驼峰命名，转换为_
+</span><span class="c1"></span>        <span class="n">strategy</span><span class="o">.</span><span class="na">setControllerMappingHyphenStyle</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">mpg</span><span class="o">.</span><span class="na">setStrategy</span><span class="o">(</span><span class="n">strategy</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">//执行
+</span><span class="c1"></span>        <span class="n">mpg</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+</code></pre></div><p><a href="https://blog.csdn.net/qq_39809458/article/details/90667544"target="_blank">网友的踩坑日记</a></p>
+<h4 id="条件构造器">条件构造器</h4>
+<p>舒服啊，这样,特别是 lambdaWrapper，美滋滋好吧</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">LambdaQueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaQueryWrapper</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">eq</span><span class="o">(</span><span class="n">User</span><span class="o">:</span><span class="o">:</span><span class="n">getName</span><span class="o">,</span><span class="s">&#34;halo&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">lt</span><span class="o">(</span><span class="n">User</span><span class="o">:</span><span class="o">:</span><span class="n">getAge</span><span class="o">,</span><span class="n">25</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectOne</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">)</span><span class="o">;</span>
+</code></pre></div><p><a href="https://mp.baomidou.com/guide/wrapper.html#abstractwrapper"target="_blank">条件构造器官网文档</a></p>
+</article></div><section class="article navigation"><p><a class="link" href="/post/java8/"><span class="li">&rarr;</span>Java8</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
+    <p class="copyright">©2020 gejigejiemmm.</p>
+    <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
+        target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
+        target="_blank">Notepadium</a></p>
+</div></section></div>
+</body>
+
+</html>

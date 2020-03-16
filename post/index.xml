@@ -7,10 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2020 gejigejiemmm.</copyright>
-    <lastBuildDate>Wed, 04 Mar 2020 09:40:27 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2020 22:45:34 +0800</lastBuildDate>
     
         <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mybatisplus</title>
+      <link>/post/mybatisplus/</link>
+      <pubDate>Wed, 11 Mar 2020 22:45:34 +0800</pubDate>
+      
+      <guid>/post/mybatisplus/</guid>
+      <description>最近突然想学一下mybatis-plus希望尽快提上日程吧。 好了，提上日程，冲冲冲 快速开始 这里贴一个官网连接 mybatis-plus 照着他们一步步来就可以了，有些</description>
+    </item>
+    
+    <item>
+      <title>Java8</title>
+      <link>/post/java8/</link>
+      <pubDate>Wed, 11 Mar 2020 18:58:21 +0800</pubDate>
+      
+      <guid>/post/java8/</guid>
+      <description>小序 第一次学java 就是用的jdk8，但在当时并不知道8的新特性。前半年学习过一次，但也就是过一遍，这次再来学习记录一下。 lambda 表达式 lambda 表达式可</description>
+    </item>
+    
+    <item>
+      <title>java中的反射</title>
+      <link>/post/reflection/</link>
+      <pubDate>Wed, 04 Mar 2020 17:07:27 +0800</pubDate>
+      
+      <guid>/post/reflection/</guid>
+      <description>反射 反射是动态性的 反射机制允许，在程序运行期间，使用反射来获取任何类的内部信息，并能操作任何类的属性和方法，框架中常有用到 在java中，加载</description>
+    </item>
+    
+    <item>
+      <title>小白都能理解的java注解</title>
+      <link>/post/annotation/</link>
+      <pubDate>Wed, 04 Mar 2020 10:14:08 +0800</pubDate>
+      
+      <guid>/post/annotation/</guid>
+      <description>java 中的注解 jdk 5.0 新增了注解 注解就是代码里的特殊标记以@开头，这些标记可以在编译， 类加载，运行时，被读取。在不改变原有逻辑上，执行一些操作 以至于</description>
+    </item>
     
     <item>
       <title>java 多线程的入门学习</title>
